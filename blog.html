@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS Tricycle Club - Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        h1 { text-align: center; }
+        button { display: block; margin: 20px auto; padding: 10px; font-size: 16px; }
+        .post { border-bottom: 1px solid #ddd; padding: 10px 0; }
+        nav { text-align: center; margin-bottom: 20px; }
+        nav a { margin: 0 10px; text-decoration: none; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+    
+    <h1>GIS Tricycle Club - Blog</h1>
+    <button onclick="addPost()">+ Add Post</button>
+    <div id="blogPosts"></div>
+
+    <script>
+        const posts = JSON.parse(localStorage.getItem("blogPosts")) || [];
+
+        function renderPosts() {
+            const blogDiv = document.getElementById("blogPosts");
+            blogDiv.innerHTML = "";
+            posts.forEach((post) => {
+                blogDiv.innerHTML += `<div class='post'><h3>${post.title}</h3><p>${post.content}</p></div>`;
+            });
+        }
+
+        function addPost() {
+            const title = prompt("Enter post title:");
+            const content = prompt("Enter post content:");
+            if (title && content) {
+                posts.unshift({ title, content });
+                localStorage.setItem("blogPosts", JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+
+        renderPosts();
+    </script>
+</body>
+</html>
